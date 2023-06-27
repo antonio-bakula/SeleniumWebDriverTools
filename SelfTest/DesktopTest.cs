@@ -74,6 +74,27 @@ namespace SeleniumWebDriverTools.SelfTest
 			Assert.AreEqual<string>("Input value", GetValue(By.Id("input1")));
 			SetValue(By.Id("input1"), "My new value");
 			Assert.AreEqual<string>("My new value", GetValue(By.Id("input1")));
+
+			// get value of html element that does not have value
+			string value = GetValue(By.ClassName("footer"));
+			Assert.IsNull(value);
+		}
+
+		[TestMethod]
+		public void TestSelectTagMethods()
+		{
+			GoToUrl("/ui-test-page");
+
+			string sval1 = SelectGetValue(By.Id("pet-select"));
+			Assert.IsTrue(string.IsNullOrEmpty(sval1));
+
+			SelectClickOptionByValue(By.Id("pet-select"), "dog");
+			string sval2 = SelectGetValue(By.Id("pet-select"));
+			Assert.AreEqual<string>("dog", sval2);
+
+			var selected = SelectGetSelectedOption(By.Id("pet-select"));
+			Assert.IsNotNull(selected);
+			Assert.AreEqual<string>("Dog", selected.Text);
 		}
 
 	}
