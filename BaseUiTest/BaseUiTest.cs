@@ -258,7 +258,7 @@ namespace SeleniumWebDriverTools.BaseUiTest
 		}
 
 		/// <summary>
-		/// Postavlja vrijednost html elementu iz parametra
+		/// Set the value of the HTML element from the parameter
 		/// </summary>
 		/// <param name="by"></param>
 		/// <param name="value"></param>
@@ -268,7 +268,7 @@ namespace SeleniumWebDriverTools.BaseUiTest
 		}
 
 		/// <summary>
-		/// Vraća vrijednost html elementa iz parametra
+		/// Returns the value of the HTML element from the parameter
 		/// </summary>
 		/// <param name="by"></param>
 		/// <returns></returns>
@@ -276,6 +276,39 @@ namespace SeleniumWebDriverTools.BaseUiTest
 		{
 			var element = this.driver.FindElement(by);
 			return element.GetAttribute("value");
+		}
+
+		/// <summary>
+		/// clicks select option
+		/// </summary>
+		/// <param name="select"></param>
+		/// <param name="value"></param>
+		public void SelectClickOptionByValue(By select, string value)
+		{
+			var selectElement = this.driver.FindElement(select);
+			Assert.IsNotNull(selectElement, "Method SelectClickOptionByValue: Select was not found");
+			var options = selectElement.FindElements(By.TagName("Option"));
+			var myOption = options.FirstOrDefault(e => e.GetAttribute("value") == value);
+			Assert.IsNotNull(myOption, $"Method SelectClickOptionByValue: No option with value: {value}");
+			myOption.Click();
+		}
+
+		public IWebElement SelectGetSelectedOption(By select)
+		{
+			var selectElement = this.driver.FindElement(select);
+			Assert.IsNotNull(selectElement, "Method SelectClickOptionByValue: Select was not found");
+			var options = selectElement.FindElements(By.TagName("Option"));
+			return options.FirstOrDefault(e => e.GetAttribute("selected") == "true");
+		}
+
+		public string SelectGetValue(By select)
+		{
+			var selectedOption = SelectGetSelectedOption(select);
+			if (selectedOption != null)
+			{
+				return selectedOption.GetAttribute("value");
+			}
+			return null;
 		}
 
 		#endregion
@@ -647,27 +680,6 @@ namespace SeleniumWebDriverTools.BaseUiTest
 				return true;
 			}
 			return false;
-		}
-
-		/// <summary>
-		/// selektira opciju iz html elementa Select
-		/// </summary>
-		/// <param name="select"></param>
-		/// <param name="value"></param>
-		public void ClickSelectOptionByValue(By select, string value)
-		{
-			var selectElement = this.driver.FindElement(select);
-			if (selectElement == null)
-			{
-				throw new Exception("Could not find select element !");
-			}
-			var options = selectElement.FindElements(By.TagName("Option"));
-			var myOption = options.FirstOrDefault(e => e.GetAttribute("value") == value);
-			if (myOption == null)
-			{
-				throw new Exception("Could not find select option with value: " + value);
-			}
-			myOption.Click();
 		}
 
 		/// <summary>
