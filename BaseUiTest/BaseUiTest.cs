@@ -181,6 +181,105 @@ namespace SeleniumWebDriverTools.BaseUiTest
 			}
 		}
 
+		#region Methods covered with tests
+
+		/// <summary>
+		/// Is the JavaScript alert currently displayed on the screen
+		/// </summary>
+		/// <returns></returns>
+		protected bool IsAlertPresent()
+		{
+			try
+			{
+				this.driver.SwitchTo().Alert();
+				return true;
+			}
+			catch (NoAlertPresentException)
+			{
+				return false;
+			}
+		}
+
+		/// <summary>
+		/// Close the currently displayed JavaScript alert and return its text
+		/// </summary>
+		/// <returns></returns>
+		protected string CloseAlertAndGetItsText()
+		{
+			IAlert alert = this.driver.SwitchTo().Alert();
+			string alertText = alert.Text;
+			alert.Accept();
+			return alertText;
+		}
+
+		/// <summary>
+		/// Checks if Checkbox element is checked
+		/// </summary>
+		/// <param name="checkbox"></param>
+		/// <returns></returns>
+		public bool CheckBoxIsChecked(By checkbox)
+		{
+			var element = GetElement(checkbox);
+			string checkedAttribute = element.GetAttribute("checked");
+			return !string.IsNullOrEmpty(checkedAttribute);
+		}
+
+		/// <summary>
+		/// Toggles the Checkbox
+		/// </summary>
+		/// <param name="checkbox"></param>
+		public void CheckBoxToggle(By checkbox)
+		{
+			SetText(checkbox, " ");
+		}
+
+		/// <summary>
+		/// Unchecks checkbox
+		/// </summary>
+		/// <param name="checkbox"></param>
+		public void CheckBoxUncheck(By checkbox)
+		{
+			if (CheckBoxIsChecked(checkbox))
+			{
+				SetText(checkbox, " ");
+			}
+		}
+
+		/// <summary>
+		/// Sets Checkbox
+		/// </summary>
+		/// <param name="checkbox"></param>
+		public void CheckBoxCheck(By checkbox)
+		{
+			if (!CheckBoxIsChecked(checkbox))
+			{
+				SetText(checkbox, " ");
+			}
+		}
+
+		/// <summary>
+		/// Postavlja vrijednost html elementu iz parametra
+		/// </summary>
+		/// <param name="by"></param>
+		/// <param name="value"></param>
+		public void SetValue(By by, string value)
+		{
+			SetAttribute(by, "value", value);
+		}
+
+		/// <summary>
+		/// Vraća vrijednost html elementa iz parametra
+		/// </summary>
+		/// <param name="by"></param>
+		/// <returns></returns>
+		public string GetValue(By by)
+		{
+			var element = this.driver.FindElement(by);
+			return element.GetAttribute("value");
+		}
+
+		#endregion
+
 		public void TakeScreenshot(DirectoryInfo saveToFolder, bool fullPage = false)
 		{
 			try
@@ -326,35 +425,6 @@ namespace SeleniumWebDriverTools.BaseUiTest
 		protected int GetClientScreenWidth()
 		{
 			return Convert.ToInt32(ExecuteReturnJS("return document.documentElement.clientWidth"));
-		}
-
-		/// <summary>
-		/// Da li je trenutno na ekranu prikazan javascript Alert
-		/// </summary>
-		/// <returns></returns>
-		protected bool IsAlertPresent()
-		{
-			try
-			{
-				this.driver.SwitchTo().Alert();
-				return true;
-			}
-			catch (NoAlertPresentException)
-			{
-				return false;
-			}
-		}
-
-		/// <summary>
-		/// Zatvori trenuno prikazani Javascript Alert i vrati njegov tekst
-		/// </summary>
-		/// <returns></returns>
-		protected string CloseAlertAndGetItsText()
-		{
-			IAlert alert = this.driver.SwitchTo().Alert();
-			string alertText = alert.Text;
-			alert.Accept();
-			return alertText;
 		}
 
 		/// <summary>
@@ -598,52 +668,6 @@ namespace SeleniumWebDriverTools.BaseUiTest
 				throw new Exception("Could not find select option with value: " + value);
 			}
 			myOption.Click();
-		}
-
-		/// <summary>
-		/// Mijenja stanje checkbox-a
-		/// </summary>
-		/// <param name="checkbox"></param>
-		public void ToggleCheckBox(By checkbox)
-		{
-			SetText(checkbox, " ");
-		}
-
-		/// <summary>
-		/// Selektira Checkbox
-		/// </summary>
-		/// <param name="checkbox"></param>
-		public void ResetCheckBox(By checkbox)
-		{
-			if (CheckBoxChecked(checkbox))
-			{
-				SetText(checkbox, " ");
-			}
-		}
-
-		/// <summary>
-		/// Selektira Checkbox
-		/// </summary>
-		/// <param name="checkbox"></param>
-		public void SetCheckBox(By checkbox)
-		{
-			if (!CheckBoxChecked(checkbox))
-			{
-				SetText(checkbox, " ");
-			}
-		}
-
-		/// <summary>
-		/// Provjerava da li je checkbox checked
-		/// </summary>
-		/// <param name="listitem"></param>
-		/// <returns></returns>
-		public bool CheckBoxChecked(By checkbox)
-		{
-			var element = GetElement(checkbox);
-			string elementClass = element.GetAttribute("class");
-			var classes = elementClass.Split(' ').ToList();
-			return classes.Contains("on");
 		}
 
 		/// <summary>
@@ -945,27 +969,6 @@ el.removeAttribute(arguments[1]);
 		}
 
 		/// <summary>
-		/// Postavlja vrijednost html elementu iz parametra
-		/// </summary>
-		/// <param name="by"></param>
-		/// <param name="value"></param>
-		public void SetValue(By by, string value)
-		{
-			SetAttribute(by, "value", value);
-		}
-
-		/// <summary>
-		/// Vraća vrijednost html elementa iz parametra
-		/// </summary>
-		/// <param name="by"></param>
-		/// <returns></returns>
-		public string GetValue(By by)
-		{
-			var element = this.driver.FindElement(by);
-			return element.GetAttribute("value");
-		}
-
-		/// <summary>
 		/// Traži child html element koji sadrži tekst iz parametra
 		/// </summary>
 		/// <param name="parent"></param>
@@ -1017,72 +1020,6 @@ el.removeAttribute(arguments[1]);
 				ClickElement(element);
 			}
 		}
-
-		#region ASP.NET Web Forms helper metode
-		private string formPrefix = "";
-
-		/// <summary>
-		/// Vraća vrijednost kontrole (po id-u) iz ASP.NET forme bez potrebe za ctlx_ prefiksom koji ovisi o parent kontrolama i podložan je promjenama
-		/// </summary>
-		/// <param name="id"></param>
-		/// <returns></returns>
-		public By FormControlById(string id)
-		{
-			// tražim prvu kontrolu moje forme
-			if (string.IsNullOrEmpty(this.formPrefix))
-			{
-				for (int i = 1; i < 100; i++)
-				{
-					string ctlpfx = $"ctl{i}";
-					var ctl = By.Id(ctlpfx + "_" + id);
-					if (IsElementPresent(ctl))
-					{
-						this.formPrefix = ctlpfx;
-						break;
-					}
-				}
-			}
-
-			// ako je još uvijek formPrefix prazan znači da nisam našao
-			if (string.IsNullOrEmpty(this.formPrefix))
-			{
-				throw new Exception($"Form control {id} not found.");
-			}
-			return By.Id(this.formPrefix + "_" + id);
-		}
-
-		/// <summary>
-		/// Vraća vrijednost kontrole (po name-u) iz ASP.NET forme bez potrebe za ctlx_ prefiksom koji ovisi o parent kontrolama i podložan je promjenama
-		/// </summary>
-		/// <param name="name"></param>
-		/// <returns></returns>
-		public By FormControlByName(string name)
-		{
-			// tražim prvu kontrolu moje forme
-			if (string.IsNullOrEmpty(this.formPrefix))
-			{
-				for (int i = 1; i < 100; i++)
-				{
-					string ctlpfx = $"ctl{i}";
-					var ctl = By.Name(ctlpfx + "$" + name);
-					if (IsElementPresent(ctl))
-					{
-						this.formPrefix = ctlpfx;
-						break;
-					}
-				}
-			}
-
-			// ako je još uvijek formPrefix prazan znači da nisam našao
-			if (string.IsNullOrEmpty(this.formPrefix))
-			{
-				throw new Exception($"Form control {name} not found.");
-			}
-			return By.Name(this.formPrefix + "$" + name);
-		}
-
-		#endregion
-
 	}
 
 	public static class IWebElementExtender
