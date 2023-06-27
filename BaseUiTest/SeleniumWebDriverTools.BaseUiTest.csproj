@@ -1,0 +1,47 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+		<UseWindowsForms>false</UseWindowsForms>
+		<AssemblyName>SeleniumWebDriverTools.BaseUiTest</AssemblyName>
+		<GeneratePackageOnBuild>False</GeneratePackageOnBuild>
+		<Title>SeleniumWebDriverTools Base UI Test</Title>
+		<Copyright>Antonio Bakula</Copyright>
+		<OutputType>Library</OutputType>
+		<Version>1.0.0.1</Version>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile></DocumentationFile>
+  </PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="DotNetSeleniumExtras.WaitHelpers" Version="3.11.0" />
+		<PackageReference Include="MSTest.TestAdapter" Version="3.0.4" />
+		<PackageReference Include="MSTest.TestFramework" Version="3.0.4" />
+		<PackageReference Include="Selenium.Firefox.WebDriver" Version="0.27.0" />
+		<PackageReference Include="Selenium.Support" Version="4.10.0" />
+		<PackageReference Include="Selenium.WebDriver" Version="4.10.0" />
+		<PackageReference Include="Selenium.WebDriver.ChromeDriver" Version="*" />
+		<PackageReference Include="Selenium.WebDriver.IEDriver" Version="4.10.0" />
+		<PackageReference Include="Selenium.WebDriver.MicrosoftDriver" Version="17.17134.0" />
+		<PackageReference Include="SixLabors.ImageSharp" Version="3.0.1" />
+		<PackageReference Include="System.Json" Version="4.7.1" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Compile Update="Resources.Designer.cs">
+	    <DesignTime>True</DesignTime>
+	    <AutoGen>True</AutoGen>
+	    <DependentUpon>Resources.resx</DependentUpon>
+	  </Compile>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <EmbeddedResource Update="Resources.resx">
+	    <Generator>PublicResXFileCodeGenerator</Generator>
+	    <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+	  </EmbeddedResource>
+	</ItemGroup>
+
+</Project>
