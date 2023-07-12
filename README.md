@@ -17,6 +17,7 @@
 
 ### Usage
 To use it, you need to inherit from `BaseUiTest` abstract class.
+
 Desktop test example:
 ```
 [TestClass]
@@ -78,7 +79,7 @@ There are 2 projects in the solution:
 - `SeleniumWebDriverTools.BaseUiTest` a test class that defines the functionalities
 - `SeleniumWebDriverTools.SelfTest` an example of usage for desktop and mobile tests (sets Chrome in mobile mode), and test for funcionality in BaseUiTest
 
-### Drawbacks and room for further improvement:
+### Drawbacks and future improvements:
 
 - the current documentation is only in the code and some is in Croatian, create documentation in a separate file and translate it to English
-- works only for Google Chrome.
+- works only for Google Chrome, it would be nice to support Firefox
