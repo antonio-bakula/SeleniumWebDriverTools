@@ -1,6 +1,6 @@
 # SeleniumWebDriverTools
 
-## Abstract Unit Test class that offers functionalities:
+## Abstract Unit Test class for Selenium Web Driver that offers functionalities:
 
 - captures screenshots of the full screen and the currently visible screen when a test fails, and attaches the files to the test so that they are visible in, for example, the DevOps test runner
 - enables testing in mobile mode using the `[MobileEmulation]` attribute set on the test class
