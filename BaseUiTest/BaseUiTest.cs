@@ -705,7 +705,7 @@ namespace SeleniumWebDriverTools.BaseUiTest
 		}
 
 		/// <summary>
-		/// Postavlja datoteku na upload u Upload kontrolu
+		/// Sets file for upload in upload HTML element (input type="file"), file is uploaded on form submit
 		/// </summary>
 		/// <param name="upload"></param>
 		/// <param name="fileFullPath"></param>
@@ -716,7 +716,7 @@ namespace SeleniumWebDriverTools.BaseUiTest
 		}
 
 		/// <summary>
-		/// Ide na relativni URL u sklopu testiranog site-a
+		/// Open relative URL on tested web site
 		/// </summary>
 		/// <param name="url"></param>
 		public void GoToUrl(string url)
@@ -729,7 +729,7 @@ namespace SeleniumWebDriverTools.BaseUiTest
 		}
 
 		/// <summary>
-		/// Ponovo učitava aktivnu stranicu
+		/// Reloads current Page
 		/// </summary>
 		public void RefreshCurrentPage()
 		{
@@ -737,7 +737,7 @@ namespace SeleniumWebDriverTools.BaseUiTest
 		}
 
 		/// <summary>
-		/// Vraća title trenutno prikazane stranice
+		/// Gets a Title of current Page
 		/// </summary>
 		/// <param name="input"></param>
 		public string GetPageTitle()
@@ -746,7 +746,7 @@ namespace SeleniumWebDriverTools.BaseUiTest
 		}
 
 		/// <summary>
-		/// Da li je html element iz parametra u vidljivom dijelu web stranice
+		/// Is HTML element in visible part of web page
 		/// </summary>
 		/// <param name="element"></param>
 		/// <returns></returns>
@@ -761,7 +761,7 @@ return (rect.top >= 0 && rect.left >= 0 && rect.bottom <= (window.innerHeight ||
 		}
 
 		/// <summary>
-		/// Scroll-a web stranicu da element iz parametra dođe u vidljivi dio
+		/// Scroll-a web stranicu da element dođe u vidljivi dio
 		/// </summary>
 		/// <param name="element"></param>
 		public void ScrollIntoView(IWebElement element)
@@ -778,7 +778,7 @@ return (rect.top >= 0 && rect.left >= 0 && rect.bottom <= (window.innerHeight ||
 		}
 
 		/// <summary>
-		/// Scroll-a web stranicu da element iz parametra dođe u vidljivi dio
+		/// Scroll-a web stranicu da element dođe u vidljivi dio
 		/// </summary>
 		/// <param name="by"></param>
 		public void ScrollIntoView(By by)
