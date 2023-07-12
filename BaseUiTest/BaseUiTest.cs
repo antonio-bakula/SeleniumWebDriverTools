@@ -471,7 +471,7 @@ namespace SeleniumWebDriverTools.BaseUiTest
 		}
 
 		/// <summary>
-		/// Čekaj dok se element prikaže (postoji u html-u i vidljiv je), omogućava i parametriziranje maksimalnog vremena koje se čeka
+		/// Wait until the element is displayed (exists in the HTML and is visible), and also allows parameterizing the maximum waiting time
 		/// </summary>
 		/// <param name="by"></param>
 		/// <param name="secondsToWait"></param>
@@ -484,65 +484,7 @@ namespace SeleniumWebDriverTools.BaseUiTest
 		}
 
 		/// <summary>
-		/// Čekaj dok se element sakrije (postoji u html-u ali NIJE vidljiv), omogućava i parametriziranje maksimalnog vremena koje se čeka
-		/// </summary>
-		/// <param name="by"></param>
-		/// <param name="secondsToWait"></param>
-		public void WaitForElementNotDisplayed(By by, int secondsToWait = 5)
-		{
-			if (!IsElementNotDisplayedWithWait(GetElement(by), secondsToWait))
-			{
-				Microsoft.VisualStudio.TestTools.UnitTesting.Assert.Fail("WaitForElementNotDisplayed failed");
-			}
-		}
-
-		/// <summary>
-		/// Čekaj dok se element sakrije (postoji u html-u ali NIJE vidljiv), omogućava i parametriziranje maksimalnog vremena koje se čeka
-		/// </summary>
-		/// <param name="element"></param>
-		/// <param name="secondsToWait"></param>
-		public void WaitForElementNotDisplayed(IWebElement element, int secondsToWait = 5)
-		{
-			if (!IsElementNotDisplayedWithWait(element, secondsToWait))
-			{
-				Microsoft.VisualStudio.TestTools.UnitTesting.Assert.Fail("WaitForElementNotDisplayed failed");
-			}
-		}
-
-		/// <summary>
-		/// Da li je element sakrije (postoji u html-u ali NIJE vidljiv je), omogućava i parametriziranje maksimalnog vremena koje se čeka
-		/// </summary>
-		/// <param name="element"></param>
-		/// <param name="secondsToWait"></param>
-		/// <returns></returns>
-		public bool IsElementNotDisplayedWithWait(IWebElement element, int secondsToWait = 5)
-		{
-			bool result;
-			for (int second = 0; ; second++)
-			{
-				if (second >= secondsToWait)
-				{
-					Microsoft.VisualStudio.TestTools.UnitTesting.Assert.Fail("IsElementNotDisplayedWithWait: timeout");
-				}
-				try
-				{
-					result = !element.Displayed;
-					if (result)
-					{
-						break;
-					}
-				}
-				catch (Exception)
-				{
-				}
-				Thread.Sleep(1000);
-			}
-			return result;
-
-		}
-
-		/// <summary>
-		/// Čekaj dok se element prikaže (postoji u html-u i vidljiv je), omogućava i parametriziranje maksimalnog vremena koje se čeka
+		/// Wait until the element is displayed (exists in the HTML and is visible), and also allows parameterizing the maximum waiting time
 		/// </summary>
 		/// <param name="element"></param>
 		/// <param name="secondsToWait"></param>
@@ -555,7 +497,64 @@ namespace SeleniumWebDriverTools.BaseUiTest
 		}
 
 		/// <summary>
-		/// Da li je element prikazan (postoji u html-u i vidljiv je), omogućava i parametriziranje maksimalnog vremena koje se čeka
+		/// Wait until the element is hidden (exists in the HTML and is NOT visible), and also allows parameterizing the maximum waiting time
+		/// </summary>
+		/// <param name="by"></param>
+		/// <param name="secondsToWait"></param>
+		public void WaitForElementNotDisplayed(By by, int secondsToWait = 5)
+		{
+			if (!IsElementNotDisplayedWithWait(GetElement(by), secondsToWait))
+			{
+				Microsoft.VisualStudio.TestTools.UnitTesting.Assert.Fail("WaitForElementNotDisplayed failed");
+			}
+		}
+
+		/// <summary>
+		/// Wait until the element is hidden (exists in the HTML and is NOT visible), and also allows parameterizing the maximum waiting time
+		/// </summary>
+		/// <param name="element"></param>
+		/// <param name="secondsToWait"></param>
+		public void WaitForElementNotDisplayed(IWebElement element, int secondsToWait = 5)
+		{
+			if (!IsElementNotDisplayedWithWait(element, secondsToWait))
+			{
+				Microsoft.VisualStudio.TestTools.UnitTesting.Assert.Fail("WaitForElementNotDisplayed failed");
+			}
+		}
+
+		/// <summary>
+		/// Is element displayed (exists in the HTML and is visible), and also allows parameterizing the maximum waiting time
+		/// </summary>
+		/// <param name="by"></param>
+		/// <param name="secondsToWait"></param>
+		/// <returns></returns>
+		public bool IsElementDisplayedWithWait(By by, int secondsToWait = 5)
+		{
+			bool result = false;
+			for (int second = 0; ; second++)
+			{
+				if (second >= secondsToWait)
+				{
+					Microsoft.VisualStudio.TestTools.UnitTesting.Assert.Fail("IsElementDisplayed: timeout");
+				}
+				try
+				{
+					result = IsElementDisplayed(by);
+					if (result)
+					{
+						break;
+					}
+				}
+				catch (Exception)
+				{
+				}
+				Thread.Sleep(1000);
+			}
+			return result;
+		}
+
+		/// <summary>
+		/// Is element displayed (exists in the HTML and is visible), and also allows parameterizing the maximum waiting time
 		/// </summary>
 		/// <param name="element"></param>
 		/// <param name="secondsToWait"></param>
@@ -587,7 +586,39 @@ namespace SeleniumWebDriverTools.BaseUiTest
 		}
 
 		/// <summary>
-		/// Da li je element prikazan (postoji u html-u i vidljiv je)
+		/// Is element hidden (exists in the HTML and is NOT visible), and also allows parameterizing the maximum waiting time
+		/// </summary>
+		/// <param name="element"></param>
+		/// <param name="secondsToWait"></param>
+		/// <returns></returns>
+		public bool IsElementNotDisplayedWithWait(IWebElement element, int secondsToWait = 5)
+		{
+			bool result;
+			for (int second = 0; ; second++)
+			{
+				if (second >= secondsToWait)
+				{
+					Microsoft.VisualStudio.TestTools.UnitTesting.Assert.Fail("IsElementNotDisplayedWithWait: timeout");
+				}
+				try
+				{
+					result = !element.Displayed;
+					if (result)
+					{
+						break;
+					}
+				}
+				catch (Exception)
+				{
+				}
+				Thread.Sleep(1000);
+			}
+			return result;
+
+		}
+
+		/// <summary>
+		/// Checks if element is displayed (exists in the HTML and is visible)
 		/// </summary>
 		/// <param name="by"></param>
 		/// <returns></returns>
@@ -605,7 +636,7 @@ namespace SeleniumWebDriverTools.BaseUiTest
 		}
 
 		/// <summary>
-		/// Da li element postoji u html-u
+		/// Checks is element present in HTML
 		/// </summary>
 		/// <param name="by"></param>
 		/// <param name="secondsToWait"></param>
@@ -636,38 +667,7 @@ namespace SeleniumWebDriverTools.BaseUiTest
 		}
 
 		/// <summary>
-		/// Da li je element prikazan (postoji u html-u i vidljiv je), omogućava i parametriziranje maksimalnog vremena koje se čeka
-		/// </summary>
-		/// <param name="by"></param>
-		/// <param name="secondsToWait"></param>
-		/// <returns></returns>
-		public bool IsElementDisplayedWithWait(By by, int secondsToWait = 5)
-		{
-			bool result = false;
-			for (int second = 0; ; second++)
-			{
-				if (second >= secondsToWait)
-				{
-					Microsoft.VisualStudio.TestTools.UnitTesting.Assert.Fail("IsElementDisplayed: timeout");
-				}
-				try
-				{
-					result = IsElementDisplayed(by);
-					if (result)
-					{
-						break;
-					}
-				}
-				catch (Exception)
-				{
-				}
-				Thread.Sleep(1000);
-			}
-			return result;
-		}
-
-		/// <summary>
-		/// Čeka element da bude prisutan u html-u i klikne na istoga, omogućava i parametriziranje maksimalnog vremena koje se čeka
+		/// Waits for element to be present in HTML and clicks it, and also allows parameterizing the maximum waiting time
 		/// </summary>
 		/// <param name="by"></param>
 		/// <param name="secondsToWait"></param>
@@ -683,7 +683,7 @@ namespace SeleniumWebDriverTools.BaseUiTest
 		}
 
 		/// <summary>
-		/// Selektira Radio item unutar Radio grupe
+		/// Selects Radio item in RadioGroup
 		/// </summary>
 		/// <param name="itemId"></param>
 		public void SetRadioItem(By itemId)
@@ -692,7 +692,7 @@ namespace SeleniumWebDriverTools.BaseUiTest
 		}
 
 		/// <summary>
-		/// Postavlja datum PickADate Date pickeru
+		/// Sets date in PickADate Date picker (https://amsul.ca/pickadate.js/)
 		/// </summary>
 		/// <param name="pickadate"></param>
 		/// <param name="date"></param>
@@ -743,6 +743,21 @@ namespace SeleniumWebDriverTools.BaseUiTest
 		public string GetPageTitle()
 		{
 			return this.driver.Title;
+		}
+
+		/// <summary>
+		/// Da li je html element iz parametra u vidljivom dijelu web stranice
+		/// </summary>
+		/// <param name="element"></param>
+		/// <returns></returns>
+		public bool IsElementInView(IWebElement element)
+		{
+			string js =
+			@"
+var rect = arguments[0].getBoundingClientRect();
+return (rect.top >= 0 && rect.left >= 0 && rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) && rect.right <= (window.innerWidth || document.documentElement.clientWidth));
+";
+			return ExecuteTypedReturnJS<bool>(js, element);
 		}
 
 		/// <summary>
@@ -855,21 +870,6 @@ namespace SeleniumWebDriverTools.BaseUiTest
 				Thread.Sleep(50);
 				ClickElementInternal(element, tryCount + 1);
 			}
-		}
-
-		/// <summary>
-		/// Da li je html element iz parametra u vidljivom dijelu web stranice
-		/// </summary>
-		/// <param name="element"></param>
-		/// <returns></returns>
-		public bool IsElementInView(IWebElement element)
-		{
-			string js =
-			@"
-var rect = arguments[0].getBoundingClientRect();
-return (rect.top >= 0 && rect.left >= 0 && rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) && rect.right <= (window.innerWidth || document.documentElement.clientWidth));
-";
-			return ExecuteTypedReturnJS<bool>(js, element);
 		}
 
 		/// <summary>
