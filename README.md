@@ -4,14 +4,14 @@
 
 - captures screenshots of the full screen and the currently visible screen when a test fails, and attaches the files to the test so that they are visible in, for example, the DevOps test runner
 - enables testing in mobile mode using the `[MobileEmulation]` attribute set on the test class
-- works with JavaScript alerts (IsAlertPresent, CloseAlertAndGetItsText)
-- methods for testing checkboxes, i.e., HTML input type checkbox (CheckBoxIsChecked, CheckBoxToggle, CheckBoxUncheck, CheckBoxCheck)
-- methods for testing HTML Select (SelectClickOptionByValue, SelectGetSelectedOption, SelectGetValue)
-- methods for managing the scroll position of the browser (GetScrollTop, SetScrollTop)
-- methods that return the screen size (GetFullPageHeight, GetFullPageWidth, GetClientScreenHeight, GetClientScreenWidth)
-- method that waits for a jQuery Ajax request to complete (WaitForJQueryAjaxRequestToComplete)
-- methods for executing JavaScript in the context of the tested page (ExecuteNonReturnJS, ExecuteTypedReturnJS, ExecuteReturnJS)
-- methods that scroll the page to make an element visible (ScrollIntoView, IsElementInView)
+- methods that works with JavaScript alerts (`IsAlertPresent`, `CloseAlertAndGetItsText`)
+- methods for testing checkboxes, i.e., HTML input type checkbox (`CheckBoxIsChecked`, `CheckBoxToggle`, `CheckBoxUncheck`, `CheckBoxCheck`)
+- methods for testing HTML Select (`SelectClickOptionByValue`, `SelectGetSelectedOption`, `SelectGetValue`)
+- methods for managing the scroll position of the browser (`GetScrollTop`, `SetScrollTop`)
+- methods that return the screen size (`GetFullPageHeight`, `GetFullPageWidth`, `GetClientScreenHeight`, `GetClientScreenWidth`)
+- method that waits for a jQuery Ajax request to complete (`WaitForJQueryAjaxRequestToComplete`)
+- methods for executing JavaScript in the context of the tested page (`ExecuteNonReturnJS`, `ExecuteTypedReturnJS`, `ExecuteReturnJS`)
+- methods that scroll the page to make an element visible (`ScrollIntoView`, `IsElementInView`)
 - allows setting the browser window to specific coordinates, useful when you want it to appear on an additional monitor (Settings in *.runsettings file)
 - many other minor functionalities, check the code :blush:
 
