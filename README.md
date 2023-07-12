@@ -15,7 +15,37 @@
 - allows setting the browser window to specific coordinates, useful when you want it to appear on an additional monitor (Settings in *.runsettings file)
 - many other minor functionalities, check the code :blush:
 
-To use it, you need to inherit from this abstract class, see the examples.
+### Usage
+To use it, you need to inherit from `BaseUiTest` abstract class.
+Desktop test example:
+```
+[TestClass]
+public class DesktopTest : BaseUiTest.BaseUiTest
+{
+  [TestMethod]
+  public void BaseSelfTest()
+  {
+    GoToUrl("/");
+    Assert.IsTrue(true);
+  }
+}
+```
+
+Mobile test example:
+
+```
+[TestClass]
+[MobileEmulation]
+public class MobileTest : BaseUiTest.BaseUiTest
+{
+  [TestMethod]
+  public void BaseSelfTest()
+  {
+    GoToUrl("/");
+    Assert.IsTrue(true);
+  }
+}
+```
 
 ### Supported settings in *.runsettings file:
 
@@ -45,8 +75,8 @@ Example:
 ### Code in Solution
 There are 2 projects in the solution:
 
-- a test class that defines the functionalities
-- an example of usage for desktop and mobile tests (sets Chrome in mobile mode)
+- `SeleniumWebDriverTools.BaseUiTest` a test class that defines the functionalities
+- `SeleniumWebDriverTools.SelfTest` an example of usage for desktop and mobile tests (sets Chrome in mobile mode), and test for funcionality in BaseUiTest
 
 ### Drawbacks and room for further improvement:
 
